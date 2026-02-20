@@ -64,3 +64,36 @@ docker-compose down
 
 - `mongo_data`: Persists MongoDB data
 - `./backend/uploads`: Persists uploaded resume files
+
+## Cloud Deployment
+
+### Google Cloud Run (Recommended)
+
+Deploy to Google Cloud Run for free using serverless containers:
+
+**Quick Start:**
+```bash
+./deploy-gcp.sh YOUR_PROJECT_ID
+```
+
+**Full Guide:** See [CLOUD_RUN_DEPLOYMENT.md](CLOUD_RUN_DEPLOYMENT.md)
+
+**Quick Reference:** See [CLOUD_RUN_QUICKSTART.md](CLOUD_RUN_QUICKSTART.md)
+
+**Deployment Features:**
+- ✅ Auto-scaling backend
+- ✅ Serverless MongoDB Atlas integration
+- ✅ Free tier eligible ($0/month)
+- ✅ Global CDN
+- ✅ Automatic SSL/TLS
+
+### Docker Deployment to Ubuntu
+
+Deploy to a Linux server using Docker:
+
+```bash
+# On Ubuntu server
+docker-compose up -d --build
+
+# Access at http://your-server-ip:3000
+```
