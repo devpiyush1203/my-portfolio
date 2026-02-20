@@ -1,0 +1,46 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - DB_NAME=portfolio_db
+      - CORS_ORIGINS=http://localhost:3000,http://frontend:3000
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend/uploads:/app/uploads
+    networks:
+      - portfolio-network
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=portfolio_db
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - portfolio-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - portfolio-network
+
+volumes:
+  mongo_data:
+
+networks:
+  portfolio-network:
+    driver: bridge
